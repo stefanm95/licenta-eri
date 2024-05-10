@@ -11,11 +11,6 @@ import TransactionList from './TransactionList'
 
 export default function Home() {
   const { user } = useAuthContext()
-  const { documents, error } = useCollection(
-    'transactions',
-    ["uid", "==", user.uid],
-    ['createdAt', 'desc']
-  )
   const history = useHistory() // Create useHistory instance
 
   const handleCityClick = () => {
@@ -23,10 +18,23 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        {error && <p>{error}</p>}
-        {documents && <TransactionList transactions={documents} />}
+    <div  style={{
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      height: "auto",
+      width: "auto",
+      backgroundColor: "white",
+      color: "black",
+      textAlign: "center",
+      padding: "20px",
+      margin: "20px",
+      borderRadius: "10px",
+      boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.2)",
+    }}>
+      <div>
+       <TransactionList />
       </div>
       <div className={styles.sidebar}>
         <TransactionForm uid={user.uid} />

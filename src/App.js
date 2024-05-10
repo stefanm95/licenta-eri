@@ -1,14 +1,14 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext'
-
-// pages & components
-import Home from './pages/home/home'
-import Login from './pages/login/login'
-import Signup from './pages/signup/signup'
-import Navbar from './components/navbar'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
+import Navbar from './components/navbar';
+import Home from './pages/home/home';
+import Login from './pages/login/login';
+import Signup from './pages/signup/signup';
+import TransactionList from './pages/home/TransactionList'
+import TransactionDetail from './pages/home/TransactionDetail';
 
 function App() {
-  const { authIsReady, user } = useAuthContext()
+  const { authIsReady, user } = useAuthContext();
 
   return (
     <div className="App">
@@ -17,8 +17,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/">
-              {!user && <Redirect to="/login" />}
-              {user && <Home />}
+             {user ? <Home /> : <TransactionList />}
             </Route>
             <Route path="/login">
               {user && <Redirect to="/" />}
@@ -28,6 +27,14 @@ function App() {
               {user && user.displayName && <Redirect to="/" />}
               {!user && <Signup />}
             </Route>
+            {/* Route for displaying the transaction list */}
+            <Route path="/transactions">
+              {user ? <TransactionList /> : <Redirect to="/login" />}
+            </Route>
+            {/* Route for displaying transaction details */}
+            <Route path="/transaction/:id">
+              {user ? <TransactionDetail /> : <TransactionDetail />}
+            </Route>
           </Switch>
         </BrowserRouter>
       )}
@@ -35,4 +42,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

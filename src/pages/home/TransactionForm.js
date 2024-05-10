@@ -6,6 +6,8 @@ export default function TransactionForm({ uid }) {
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
   const [amount, setAmount] = useState('')
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const { addDocument, response } = useFirestore('transactions')
 
   const handleSubmit = (e) => {
@@ -16,6 +18,9 @@ export default function TransactionForm({ uid }) {
       city, // Add city data
       country,
       amount,
+      description,
+      imageUrl,
+      timestamp: new Date()
     })
   }
 
@@ -26,6 +31,8 @@ export default function TransactionForm({ uid }) {
       setCity('')
       setCountry('')
       setAmount('')
+      setDescription('');
+      setImageUrl('');
     }
   }, [response.success])
 
@@ -67,6 +74,27 @@ export default function TransactionForm({ uid }) {
             required
             onChange={(e) => setAmount(e.target.value)}
             value={amount}
+          />
+        </label>
+        <label>
+          <span>Description:</span>
+          <textarea
+            required
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+            style={{
+              width: '100%',
+              height: '50px',
+              resize: 'vertical'
+            }}
+          />
+        </label>
+        <label>
+          <span>Image URL:</span>
+          <input
+            type="text"
+            onChange={(e) => setImageUrl(e.target.value)}
+            value={imageUrl}
           />
         </label>
         <button>Add Transaction</button>
