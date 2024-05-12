@@ -32,7 +32,6 @@ const TransactionList = () => {
 
     const value = e.target.value.toLowerCase();
     setFilteredCity(value);
-    // setFilterredCity(e.target.value);
   };
 
   return (
@@ -52,10 +51,10 @@ const TransactionList = () => {
         color: "black",
         textAlign: "center",
         padding: "20px",
-        margin: "20px",
         marginLeft: "10px",
         borderRadius: "10px",
         gap: "10px",
+        fontFamily: "Poppins, sans-serif"
       }}
     >
       <h2>Transactions</h2>
